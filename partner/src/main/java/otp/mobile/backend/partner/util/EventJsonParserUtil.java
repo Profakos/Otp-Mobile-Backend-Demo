@@ -13,6 +13,7 @@ import org.springframework.util.FileCopyUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import otp.mobile.backend.common.domain.EventSeating;
+import otp.mobile.backend.common.domain.EventSeatingWrapper;
 
 public final class EventJsonParserUtil {
 
@@ -20,7 +21,7 @@ public final class EventJsonParserUtil {
 
 	public static EventSeating readEventSeating(long id) {
 
-		String path = "classpath:/event-data/getEvent" + id + ".json";
+		String path = "event-data/getEvent" + id + ".json";
 
 		log.debug("Reading data from path={}", path);
 
@@ -34,7 +35,8 @@ public final class EventJsonParserUtil {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
-			return objectMapper.readValue(content, EventSeating.class);
+			EventSeatingWrapper wrapper = objectMapper.readValue(content, EventSeatingWrapper.class);
+			return wrapper.getData();
 		} catch (IOException e) {
 			log.debug("Failed to parse content value");
 			return null;
