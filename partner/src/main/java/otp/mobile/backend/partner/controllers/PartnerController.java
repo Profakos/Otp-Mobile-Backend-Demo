@@ -19,7 +19,7 @@ import otp.mobile.backend.common.domain.ReservationResult;
 import otp.mobile.backend.partner.service.PartnerService;
 
 @RestController
-@RequestMapping("/api/partner")
+@RequestMapping("/partner")
 public class PartnerController {
 
 	private final Logger log = LoggerFactory.getLogger(PartnerController.class);
