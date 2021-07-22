@@ -4,7 +4,7 @@ public class ReservationResult {
 
 	private boolean success;
 	private Long reservationId;
-	private int errorCode;
+	private Integer errorCode;
 
 	public boolean isSuccess() {
 		return success;
@@ -22,11 +22,11 @@ public class ReservationResult {
 		this.reservationId = reservationId;
 	}
 
-	public int getErrorCode() {
+	public Integer getErrorCode() {
 		return errorCode;
 	}
 
-	public void setErrorCode(int errorCode) {
+	public void setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
 	}
 }
