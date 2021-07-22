@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>partner</module>
+		<module>common</module>
 	</modules>
 	
 	<build>
