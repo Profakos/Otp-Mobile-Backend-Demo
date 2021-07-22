@@ -1,6 +1,5 @@
 package otp.mobile.backend.partner.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,18 +16,13 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public EventSeating fetchEvent(int eventId) {
 
-		return EventJsonParserUtil.readEventSeating(eventId);
+		return EventJsonParserUtil.readEventData(eventId);
 	}
 
 	@Override
 	public List<Event> fetchEvents() {
 
-		List<Event> events = new ArrayList<>();
-
-		Event event = new Event();
-		events.add(event);
-
-		return events;
+		return EventJsonParserUtil.readEvents();
 	}
 
 	@Override

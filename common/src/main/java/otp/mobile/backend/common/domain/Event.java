@@ -5,7 +5,7 @@ public class Event {
 	private int eventId;
 	private String title;
 	private String location;
-	private String starTimeStamp;
+	private String startTimeStamp;
 	private String endTimeStamp;
 
 	public int getEventId() {
@@ -32,12 +32,12 @@ public class Event {
 		this.location = location;
 	}
 
-	public String getStarTimeStamp() {
-		return starTimeStamp;
+	public String getStartTimeStamp() {
+		return startTimeStamp;
 	}
 
-	public void setStarTimeStamp(String starTimeStamp) {
-		this.starTimeStamp = starTimeStamp;
+	public void setStartTimeStamp(String startTimeStamp) {
+		this.startTimeStamp = startTimeStamp;
 	}
 
 	public String getEndTimeStamp() {
