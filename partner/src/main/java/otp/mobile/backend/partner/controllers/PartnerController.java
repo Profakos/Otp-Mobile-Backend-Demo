@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
 import otp.mobile.backend.common.domain.ReservationResult;
+import otp.mobile.backend.partner.service.PartnerService;
 
 @RestController
 @RequestMapping("/api/partner")
@@ -22,12 +24,15 @@ public class PartnerController {
 
 	private final Logger log = LoggerFactory.getLogger(PartnerController.class);
 
+	@Autowired
+	PartnerService partnerService;
+
 	@GetMapping(path = "/getEvent/{eventId}")
 	ResponseEntity<EventSeating> fetchEvent(@PathVariable int eventId) {
 
 		log.debug("Querying the seating data of an event, eventId={}", eventId);
 
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(partnerService.fetchEvent(eventId));
 	}
 
 	@GetMapping(path = "/getEvents")
@@ -35,15 +40,15 @@ public class PartnerController {
 
 		log.debug("Querying the description of all events");
 
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(partnerService.fetchEvents());
 	}
 
 	@PostMapping(path = "reserve")
-	ResponseEntity<ReservationResult> reserveEvent(@RequestParam(name = "eventId", required = true) int eventId,
+	ResponseEntity<ReservationResult> reserveSeat(@RequestParam(name = "eventId", required = true) int eventId,
 			@RequestParam(name = "seatId", required = true) int seatId) {
 
 		log.debug("Attempting reservation at a specific event and seat, eventId={}, seatId={}", eventId, seatId);
 
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(partnerService.reserveSeat(eventId, seatId));
 	}
 }
