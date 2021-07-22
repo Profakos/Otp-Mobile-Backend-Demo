@@ -15,10 +15,10 @@
 
 	<modules>
 		<module>api</module>
-		<module>core</module>
 		<module>partner</module>
-		<module>ticket</module>
 		<module>common</module>
+		<module>core</module>
+		<module>ticket</module>
 	</modules>
 	
 	<build>
