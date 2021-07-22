@@ -6,11 +6,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ticket</artifactId>
-  <packaging>pom</packaging>
   <name>Ticket</name>
-  <description>Handles communication with the partner module</description>
+  <description>Handles communication with the Partner module</description>
   
-    <properties>
+    	<properties>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
