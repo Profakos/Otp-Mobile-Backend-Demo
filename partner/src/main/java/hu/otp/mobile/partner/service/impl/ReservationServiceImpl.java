@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import hu.otp.mobile.partner.service.ReservationService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
 import opt.mobile.backend.common.dto.ErrorMessage;
+import opt.mobile.backend.common.dto.ReservationResult;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.ReservationResult;
 import otp.mobile.backend.common.domain.Seat;
 
 @Service

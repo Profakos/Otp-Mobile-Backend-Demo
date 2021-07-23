@@ -3,7 +3,7 @@ package hu.otp.mobile.api.service.impl;
 import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.api.service.ReservationService;
-import otp.mobile.backend.common.domain.ReservationResult;
+import opt.mobile.backend.common.dto.ReservationResult;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {

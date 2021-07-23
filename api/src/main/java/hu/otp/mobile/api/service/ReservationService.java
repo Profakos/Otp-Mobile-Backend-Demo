@@ -1,6 +1,6 @@
 package hu.otp.mobile.api.service;
 
-import otp.mobile.backend.common.domain.ReservationResult;
+import opt.mobile.backend.common.dto.ReservationResult;
 
 public interface ReservationService {
 

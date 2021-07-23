@@ -1,4 +1,4 @@
-package otp.mobile.backend.common.domain;
+package opt.mobile.backend.common.dto;
 
 public class ReservationResult {
 

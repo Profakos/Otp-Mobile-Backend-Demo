@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.otp.mobile.api.service.EventService;
 import hu.otp.mobile.api.service.ReservationService;
 import hu.otp.mobile.api.service.TokenService;
+import opt.mobile.backend.common.dto.ReservationResult;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.ReservationResult;
 
 @RestController
 @RequestMapping("/api")
