@@ -3,6 +3,8 @@ package hu.otp.mobile.partner.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.partner.service.PartnerService;
@@ -16,8 +18,12 @@ import otp.mobile.backend.common.domain.Seat;
 @Service
 public class PartnerServiceImpl implements PartnerService {
 
+	private final Logger log = LoggerFactory.getLogger(PartnerServiceImpl.class);
+
 	@Override
 	public EventSeating getEvent(int eventId) {
+
+		log.info("Reading event seating data, eventId={}", eventId);
 
 		return EventJsonParserUtil.readEventData(eventId);
 	}
@@ -25,11 +31,15 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public List<Event> getEvents() {
 
+		log.info("Reading event details file");
+
 		return EventJsonParserUtil.readEvents();
 	}
 
 	@Override
 	public ReservationResult reserve(int eventId, int seatId) {
+
+		log.info("Reading event details file to check if event exists, eventId={}", eventId);
 
 		List<Event> events = EventJsonParserUtil.readEvents();
 
@@ -42,6 +52,8 @@ public class PartnerServiceImpl implements PartnerService {
 			result.setSuccess(false);
 			return result;
 		}
+
+		log.info("Reading event seating data to check if seating exists, seatId={}", seatId);
 
 		EventSeating eventSeating = EventJsonParserUtil.readEventData(eventId);
 
@@ -61,6 +73,8 @@ public class PartnerServiceImpl implements PartnerService {
 			result.setSuccess(false);
 			return result;
 		}
+
+		log.info("Reserving seating");
 
 		long minId = 1;
 		long maxId = 1000;

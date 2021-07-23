@@ -30,7 +30,7 @@ public class ApiController {
 	@GetMapping(path = "/getEvent/{eventId}")
 	ResponseEntity<EventSeating> getEvent(@PathVariable int eventId) {
 
-		log.debug("Querying the details of an event, eventId={}", eventId);
+		log.info("Querying the details of an event, eventId={}", eventId);
 
 		return ResponseEntity.ok(apiService.getEvent(eventId));
 	}
@@ -38,7 +38,7 @@ public class ApiController {
 	@GetMapping(path = "/getEvents")
 	ResponseEntity<List<Event>> getEvents() {
 
-		log.debug("Querying the description of all events");
+		log.info("Querying the description of all events");
 
 		return ResponseEntity.ok(apiService.getEvents());
 	}
@@ -47,7 +47,7 @@ public class ApiController {
 	ResponseEntity<ReservationResult> pay(@RequestParam(name = "eventId", required = true) int eventId,
 			@RequestParam(name = "seatId", required = true) int seatId, @RequestParam(name = "cardId", required = true) int cardId) {
 
-		log.debug("Attempting reservation at a specific event and seat with a specific card, eventId={}, seatId={}, cardId={}", eventId,
+		log.info("Attempting reservation at a specific event and seat with a specific card, eventId={}, seatId={}, cardId={}", eventId,
 				seatId, cardId);
 
 		return ResponseEntity.ok(apiService.pay(eventId, seatId, cardId));
