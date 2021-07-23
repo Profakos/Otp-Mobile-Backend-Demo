@@ -1,4 +1,4 @@
-package otp.mobile.backend.partner.util;
+package hu.otp.mobile.partner.util;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

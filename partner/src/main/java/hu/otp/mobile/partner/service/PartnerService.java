@@ -1,4 +1,4 @@
-package otp.mobile.backend.partner.service;
+package hu.otp.mobile.partner.service;
 
 import java.util.List;
 

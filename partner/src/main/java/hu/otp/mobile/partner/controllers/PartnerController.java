@@ -1,4 +1,4 @@
-package otp.mobile.backend.partner.controllers;
+package hu.otp.mobile.partner.controllers;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.otp.mobile.partner.service.PartnerService;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
 import otp.mobile.backend.common.domain.ReservationResult;
-import otp.mobile.backend.partner.service.PartnerService;
 
 @RestController
 @RequestMapping("/partner")

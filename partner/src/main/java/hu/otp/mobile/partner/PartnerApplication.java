@@ -1,4 +1,4 @@
-package otp.mobile.backend.partner;
+package hu.otp.mobile.partner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

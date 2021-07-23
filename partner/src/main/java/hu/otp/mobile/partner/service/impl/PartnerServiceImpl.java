@@ -1,17 +1,17 @@
-package otp.mobile.backend.partner.service.impl;
+package hu.otp.mobile.partner.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import hu.otp.mobile.partner.service.PartnerService;
+import hu.otp.mobile.partner.util.EventJsonParserUtil;
 import opt.mobile.backend.common.dto.ErrorMessage;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
 import otp.mobile.backend.common.domain.ReservationResult;
 import otp.mobile.backend.common.domain.Seat;
-import otp.mobile.backend.partner.service.PartnerService;
-import otp.mobile.backend.partner.util.EventJsonParserUtil;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
