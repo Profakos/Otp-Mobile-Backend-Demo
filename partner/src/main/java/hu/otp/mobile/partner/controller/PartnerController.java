@@ -1,4 +1,4 @@
-package hu.otp.mobile.partner.controllers;
+package hu.otp.mobile.partner.controller;
 
 import java.util.List;
 
@@ -28,27 +28,27 @@ public class PartnerController {
 	PartnerService partnerService;
 
 	@GetMapping(path = "/getEvent/{eventId}")
-	ResponseEntity<EventSeating> fetchEvent(@PathVariable int eventId) {
+	ResponseEntity<EventSeating> getEvent(@PathVariable int eventId) {
 
 		log.debug("Querying the seating data of an event, eventId={}", eventId);
 
-		return ResponseEntity.ok(partnerService.fetchEvent(eventId));
+		return ResponseEntity.ok(partnerService.getEvent(eventId));
 	}
 
 	@GetMapping(path = "/getEvents")
-	ResponseEntity<List<Event>> fetchEvents() {
+	ResponseEntity<List<Event>> getEvents() {
 
 		log.debug("Querying the description of all events");
 
-		return ResponseEntity.ok(partnerService.fetchEvents());
+		return ResponseEntity.ok(partnerService.getEvents());
 	}
 
 	@PostMapping(path = "reserve")
-	ResponseEntity<ReservationResult> reserveSeat(@RequestParam(name = "eventId", required = true) int eventId,
+	ResponseEntity<ReservationResult> reserve(@RequestParam(name = "eventId", required = true) int eventId,
 			@RequestParam(name = "seatId", required = true) int seatId) {
 
 		log.debug("Attempting reservation at a specific event and seat, eventId={}, seatId={}", eventId, seatId);
 
-		return ResponseEntity.ok(partnerService.reserveSeat(eventId, seatId));
+		return ResponseEntity.ok(partnerService.reserve(eventId, seatId));
 	}
 }

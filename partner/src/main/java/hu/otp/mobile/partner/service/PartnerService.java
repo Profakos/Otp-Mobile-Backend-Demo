@@ -8,9 +8,9 @@ import otp.mobile.backend.common.domain.ReservationResult;
 
 public interface PartnerService {
 
-	public EventSeating fetchEvent(int eventId);
+	public EventSeating getEvent(int eventId);
 
-	public List<Event> fetchEvents();
+	public List<Event> getEvents();
 
-	public ReservationResult reserveSeat(int eventId, int seatId);
+	public ReservationResult reserve(int eventId, int seatId);
 }

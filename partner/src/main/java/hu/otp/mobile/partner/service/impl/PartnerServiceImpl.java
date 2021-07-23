@@ -17,19 +17,19 @@ import otp.mobile.backend.common.domain.Seat;
 public class PartnerServiceImpl implements PartnerService {
 
 	@Override
-	public EventSeating fetchEvent(int eventId) {
+	public EventSeating getEvent(int eventId) {
 
 		return EventJsonParserUtil.readEventData(eventId);
 	}
 
 	@Override
-	public List<Event> fetchEvents() {
+	public List<Event> getEvents() {
 
 		return EventJsonParserUtil.readEvents();
 	}
 
 	@Override
-	public ReservationResult reserveSeat(int eventId, int seatId) {
+	public ReservationResult reserve(int eventId, int seatId) {
 
 		List<Event> events = EventJsonParserUtil.readEvents();
 
