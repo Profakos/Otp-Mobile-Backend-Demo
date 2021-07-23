@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.otp.mobile.partner.service.PartnerService;
+import hu.otp.mobile.partner.service.EventService;
+import hu.otp.mobile.partner.service.ReservationService;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
 import otp.mobile.backend.common.domain.ReservationResult;
@@ -25,14 +26,16 @@ public class PartnerController {
 	private final Logger log = LoggerFactory.getLogger(PartnerController.class);
 
 	@Autowired
-	PartnerService partnerService;
+	EventService eventService;
+	@Autowired
+	ReservationService registrationService;
 
 	@GetMapping(path = "/getEvent/{eventId}")
 	ResponseEntity<EventSeating> getEvent(@PathVariable int eventId) {
 
 		log.info("Querying the seating data of an event, eventId={}", eventId);
 
-		return ResponseEntity.ok(partnerService.getEvent(eventId));
+		return ResponseEntity.ok(eventService.getEvent(eventId));
 	}
 
 	@GetMapping(path = "/getEvents")
@@ -40,7 +43,7 @@ public class PartnerController {
 
 		log.info("Querying the description of all events");
 
-		return ResponseEntity.ok(partnerService.getEvents());
+		return ResponseEntity.ok(eventService.getEvents());
 	}
 
 	@PostMapping(path = "reserve")
@@ -49,6 +52,6 @@ public class PartnerController {
 
 		log.info("Attempting reservation at a specific event and seat, eventId={}, seatId={}", eventId, seatId);
 
-		return ResponseEntity.ok(partnerService.reserve(eventId, seatId));
+		return ResponseEntity.ok(registrationService.reserve(eventId, seatId));
 	}
 }

@@ -1,16 +1,12 @@
-package hu.otp.mobile.partner.service;
+package hu.otp.mobile.api.service;
 
 import java.util.List;
 
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.ReservationResult;
 
-public interface PartnerService {
-
+public interface EventService {
 	public EventSeating getEvent(int eventId);
 
 	public List<Event> getEvents();
-
-	public ReservationResult reserve(int eventId, int seatId);
 }

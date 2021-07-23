@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import hu.otp.mobile.partner.service.PartnerService;
+import hu.otp.mobile.partner.service.ReservationService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
 import opt.mobile.backend.common.dto.ErrorMessage;
 import otp.mobile.backend.common.domain.Event;
@@ -16,25 +16,9 @@ import otp.mobile.backend.common.domain.ReservationResult;
 import otp.mobile.backend.common.domain.Seat;
 
 @Service
-public class PartnerServiceImpl implements PartnerService {
+public class ReservationServiceImpl implements ReservationService {
 
-	private final Logger log = LoggerFactory.getLogger(PartnerServiceImpl.class);
-
-	@Override
-	public EventSeating getEvent(int eventId) {
-
-		log.info("Reading event seating data, eventId={}", eventId);
-
-		return EventJsonParserUtil.readEventData(eventId);
-	}
-
-	@Override
-	public List<Event> getEvents() {
-
-		log.info("Reading event details file");
-
-		return EventJsonParserUtil.readEvents();
-	}
+	private final Logger log = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
 	@Override
 	public ReservationResult reserve(int eventId, int seatId) {
