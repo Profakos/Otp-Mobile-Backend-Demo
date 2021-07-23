@@ -17,7 +17,7 @@ public class EventServiceImpl implements EventService {
 	private final Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
 
 	@Override
-	public EventSeating getEvent(int eventId) {
+	public EventSeating getEvent(Long eventId) {
 
 		log.info("Reading event seating data, eventId={}", eventId);
 

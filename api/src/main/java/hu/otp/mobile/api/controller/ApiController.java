@@ -36,7 +36,7 @@ public class ApiController {
 	TokenService tokenService;
 
 	@GetMapping(path = "/getEvent/{eventId}")
-	ResponseEntity<EventSeating> getEvent(@RequestHeader("User-Token") String userToken, @PathVariable int eventId) {
+	ResponseEntity<EventSeating> getEvent(@RequestHeader("User-Token") String userToken, @PathVariable Long eventId) {
 
 		log.info("Querying the details of an event, eventId={}", eventId);
 
@@ -65,8 +65,8 @@ public class ApiController {
 
 	@PostMapping(path = "pay")
 	ResponseEntity<ReservationResult> pay(@RequestHeader("User-Token") String userToken,
-			@RequestParam(name = "eventId", required = true) int eventId, @RequestParam(name = "seatId", required = true) int seatId,
-			@RequestParam(name = "cardId", required = true) int cardId) {
+			@RequestParam(name = "eventId", required = true) Long eventId, @RequestParam(name = "seatId", required = true) Long seatId,
+			@RequestParam(name = "cardId", required = true) Long cardId) {
 
 		log.info("Attempting reservation at a specific event and seat with a specific card, eventId={}, seatId={}, cardId={}", eventId,
 				seatId, cardId);
@@ -77,6 +77,6 @@ public class ApiController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 
-		return ResponseEntity.ok(registrationService.pay(eventId, seatId, cardId));
+		return ResponseEntity.ok(registrationService.pay(eventId, seatId, cardId, userToken));
 	}
 }

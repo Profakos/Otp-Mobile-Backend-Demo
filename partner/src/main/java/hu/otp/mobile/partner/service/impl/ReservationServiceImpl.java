@@ -21,7 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private final Logger log = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
 	@Override
-	public ReservationResult reserve(int eventId, int seatId) {
+	public ReservationResult reserve(Long eventId, Long seatId) {
 
 		log.info("Reading event details file to check if event exists, eventId={}", eventId);
 

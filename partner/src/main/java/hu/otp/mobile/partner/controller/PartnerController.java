@@ -31,7 +31,7 @@ public class PartnerController {
 	ReservationService registrationService;
 
 	@GetMapping(path = "/getEvent/{eventId}")
-	ResponseEntity<EventSeating> getEvent(@PathVariable int eventId) {
+	ResponseEntity<EventSeating> getEvent(@PathVariable Long eventId) {
 
 		log.info("Querying the seating data of an event, eventId={}", eventId);
 
@@ -46,9 +46,9 @@ public class PartnerController {
 		return ResponseEntity.ok(eventService.getEvents());
 	}
 
-	@PostMapping(path = "reserve")
-	ResponseEntity<ReservationResult> reserve(@RequestParam(name = "eventId", required = true) int eventId,
-			@RequestParam(name = "seatId", required = true) int seatId) {
+	@PostMapping(path = "/reserve")
+	ResponseEntity<ReservationResult> reserve(@RequestParam(name = "eventId", required = true) Long eventId,
+			@RequestParam(name = "seatId", required = true) Long seatId) {
 
 		log.info("Attempting reservation at a specific event and seat, eventId={}, seatId={}", eventId, seatId);
 

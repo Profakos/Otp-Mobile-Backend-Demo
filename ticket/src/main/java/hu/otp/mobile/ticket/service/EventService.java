@@ -1,4 +1,4 @@
-package hu.otp.mobile.api.service;
+package hu.otp.mobile.ticket.service;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
 
 public interface EventService {
+
 	/**
 	 * Queries the event details
 	 * 

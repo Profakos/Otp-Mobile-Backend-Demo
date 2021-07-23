@@ -1,4 +1,4 @@
-package hu.otp.mobile.api.service;
+package hu.otp.mobile.ticket.service;
 
 import opt.mobile.backend.common.dto.ReservationResult;
 
@@ -13,5 +13,5 @@ public interface ReservationService {
 	 * @param userToken, the encoded user token, not <code>null</code>
 	 * @return the reservation result dto
 	 */
-	public ReservationResult pay(Long eventId, Long seatId, Long cardId, String userToken);
+	public ReservationResult reserve(Long eventId, Long seatId, Long cardId, String userToken);
 }
