@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 
@@ -54,7 +54,7 @@ public class TicketClient {
 		return Arrays.asList(response.getBody());
 	}
 
-	public ReservationResult reserve(String userToken, Long eventId, Long seatId, Long cardId) {
+	public ReservationSuccessDto reserve(String userToken, Long eventId, Long seatId, Long cardId) {
 
 		String url = ticketUrl + "/reserve";
 
@@ -66,8 +66,8 @@ public class TicketClient {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("User-Token", userToken)
 				.queryParam("eventId", eventId).queryParam("seatId", seatId).queryParam("cardId", cardId);
 
-		HttpEntity<ReservationResult> response = restTemplate.postForEntity(builder.build().encode().toUri(), null,
-				ReservationResult.class);
+		HttpEntity<ReservationSuccessDto> response = restTemplate.postForEntity(builder.build().encode().toUri(), null,
+				ReservationSuccessDto.class);
 
 		return response.getBody();
 	}

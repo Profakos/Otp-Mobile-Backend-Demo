@@ -1,6 +1,6 @@
 package hu.otp.mobile.ticket.service;
 
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 
 public interface ReservationService {
 
@@ -13,5 +13,5 @@ public interface ReservationService {
 	 * @param userToken, the encoded user token, not <code>null</code>
 	 * @return the reservation result dto
 	 */
-	public ReservationResult reserve(Long eventId, Long seatId, Long cardId, String userToken);
+	public ReservationSuccessDto reserve(Long eventId, Long seatId, Long cardId, String userToken);
 }

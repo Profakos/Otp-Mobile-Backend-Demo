@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.otp.mobile.api.service.EventService;
 import hu.otp.mobile.api.service.ReservationService;
 import hu.otp.mobile.api.service.TokenService;
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 
@@ -64,7 +64,7 @@ public class ApiController {
 	}
 
 	@PostMapping(path = "pay")
-	ResponseEntity<ReservationResult> pay(@RequestHeader("User-Token") String userToken,
+	ResponseEntity<ReservationSuccessDto> pay(@RequestHeader("User-Token") String userToken,
 			@RequestParam(name = "eventId", required = true) Long eventId, @RequestParam(name = "seatId", required = true) Long seatId,
 			@RequestParam(name = "cardId", required = true) Long cardId) {
 

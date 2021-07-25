@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.partner.service.ReservationService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
-import opt.mobile.common.dto.ErrorMessage;
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
+import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.ReservationException;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 import otp.mobile.common.domain.Seat;
@@ -21,7 +22,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private final Logger log = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
 	@Override
-	public ReservationResult reserve(Long eventId, Long seatId) {
+	public ReservationSuccessDto reserve(Long eventId, Long seatId) {
 
 		log.info("Reading event details file to check if event exists, eventId={}", eventId);
 
@@ -29,13 +30,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 		Optional<Event> eventOpt = events.stream().filter(e -> e.getEventId() == eventId).findFirst();
 
-		ReservationResult result = new ReservationResult();
-
 		if (!eventOpt.isPresent()) {
 			log.warn("Event does not exist");
-			result.setErrorCode(ErrorMessage.PARTNER_EVENT_DOESNT_EXIST.getErrorCode());
-			result.setSuccess(false);
-			return result;
+			throw new ReservationException(MobileErrorMessage.PARTNER_EVENT_DOESNT_EXIST);
+
 		}
 
 		log.info("Reading event seating data to check if seating exists, seatId={}", seatId);
@@ -47,22 +45,18 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
-			result.setErrorCode(ErrorMessage.PARTNER_SEAT_DOESNT_EXIST.getErrorCode());
-			result.setSuccess(false);
-			return result;
+			throw new ReservationException(MobileErrorMessage.PARTNER_SEAT_DOESNT_EXIST);
 		}
 
 		Seat seat = seatOpt.get();
 
 		if (seat.getReserved()) {
 			log.warn("Seat is already reserved");
-			result.setErrorCode(ErrorMessage.PARTNER_SEAT_ALREADY_RESERVED.getErrorCode());
-			result.setSuccess(false);
-			return result;
+			throw new ReservationException(MobileErrorMessage.PARTNER_SEAT_ALREADY_RESERVED);
 		}
 
+		ReservationSuccessDto result = new ReservationSuccessDto();
 		log.info("Reserving seating");
-
 		long minId = 1;
 		long maxId = 1000;
 		long generatedId = minId + (long) (Math.random() * (maxId - minId));

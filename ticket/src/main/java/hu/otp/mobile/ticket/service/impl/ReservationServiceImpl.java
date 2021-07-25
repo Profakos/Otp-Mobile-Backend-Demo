@@ -1,6 +1,5 @@
 package hu.otp.mobile.ticket.service.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 import hu.otp.mobile.ticket.client.CoreClient;
 import hu.otp.mobile.ticket.client.PartnerClient;
 import hu.otp.mobile.ticket.service.ReservationService;
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 import otp.mobile.common.domain.Seat;
@@ -28,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
 	PartnerClient partnerClient;
 
 	@Override
-	public ReservationResult reserve(Long eventId, Long seatId, Long cardId, String userToken) {
+	public ReservationSuccessDto reserve(Long eventId, Long seatId, Long cardId, String userToken) {
 
 		log.info("Sending event seating data query to partner module");
 
@@ -45,17 +44,17 @@ public class ReservationServiceImpl implements ReservationService {
 		Event event = eventOptional.get();
 		String startDate = event.getStartTimeStamp();
 
-		Date eventStartTime = new Date(Long.parseLong(startDate) * 1000);
-		if (eventStartTime.before(new Date())) {
-			log.warn("Event has already started");
-			return null;
-		}
+		// Date eventStartTime = new Date(Long.parseLong(startDate) * 1000);
+		// if (eventStartTime.before(new Date())) {
+		// log.warn("Event has already started");
+		// return null;
+		// }
 
 		EventSeating eventSeating = partnerClient.getEvent(eventId);
 		String formattedSeatId = "S" + seatId;
 		Optional<Seat> seatOpt = eventSeating.getSeats().stream().filter(e -> e.getId().equals(formattedSeatId)).findFirst();
 
-		if (seatOpt.isPresent()) {
+		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
 			return null;
 		}

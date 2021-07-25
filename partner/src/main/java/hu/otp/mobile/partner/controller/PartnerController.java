@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.otp.mobile.partner.service.EventService;
 import hu.otp.mobile.partner.service.ReservationService;
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 
@@ -47,7 +47,7 @@ public class PartnerController {
 	}
 
 	@PostMapping(path = "/reserve")
-	ResponseEntity<ReservationResult> reserve(@RequestParam(name = "eventId", required = true) Long eventId,
+	ResponseEntity<ReservationSuccessDto> reserve(@RequestParam(name = "eventId", required = true) Long eventId,
 			@RequestParam(name = "seatId", required = true) Long seatId) {
 
 		log.info("Received event seat purchase request, eventId={}, seatId={}", eventId, seatId);

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.api.client.TicketClient;
 import hu.otp.mobile.api.service.ReservationService;
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -18,7 +18,7 @@ public class ReservationServiceImpl implements ReservationService {
 	TicketClient ticketClient;
 
 	@Override
-	public ReservationResult pay(Long eventId, Long seatId, Long cardId, String userToken) {
+	public ReservationSuccessDto pay(Long eventId, Long seatId, Long cardId, String userToken) {
 
 		log.info("Sending reservation query to ticket module");
 

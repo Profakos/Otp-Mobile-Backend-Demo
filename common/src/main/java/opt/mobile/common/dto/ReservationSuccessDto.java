@@ -1,10 +1,9 @@
 package opt.mobile.common.dto;
 
-public class ReservationResult {
+public class ReservationSuccessDto {
 
 	private boolean success;
 	private Long reservationId;
-	private Integer errorCode;
 
 	public boolean isSuccess() {
 		return success;
@@ -20,13 +19,5 @@ public class ReservationResult {
 
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
-	}
-
-	public Integer getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(Integer errorCode) {
-		this.errorCode = errorCode;
 	}
 }

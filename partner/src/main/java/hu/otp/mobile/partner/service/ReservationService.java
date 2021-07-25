@@ -1,6 +1,6 @@
 package hu.otp.mobile.partner.service;
 
-import opt.mobile.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationSuccessDto;
 
 public interface ReservationService {
 
@@ -11,5 +11,5 @@ public interface ReservationService {
 	 * @param seatId the seat's ID, not <code>null</code>
 	 * @return the reservation result dto
 	 */
-	public ReservationResult reserve(Long eventId, Long seatId);
+	public ReservationSuccessDto reserve(Long eventId, Long seatId);
 }
