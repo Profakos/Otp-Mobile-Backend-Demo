@@ -1,4 +1,4 @@
-package otp.mobile.backend.common.domain;
+package otp.mobile.common.domain;
 
 public class Seat {
 

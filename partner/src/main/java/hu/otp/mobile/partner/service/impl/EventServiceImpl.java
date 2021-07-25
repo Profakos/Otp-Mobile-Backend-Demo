@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.partner.service.EventService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
 
 @Service
 public class EventServiceImpl implements EventService {

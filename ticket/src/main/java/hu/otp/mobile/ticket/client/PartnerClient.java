@@ -15,9 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import hu.otp.mobile.ticket.util.SslUtil;
-import opt.mobile.backend.common.dto.ReservationResult;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
+import opt.mobile.common.dto.ReservationResult;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
 
 @Component
 public class PartnerClient {

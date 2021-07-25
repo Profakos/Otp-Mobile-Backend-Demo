@@ -13,10 +13,10 @@ import org.springframework.util.FileCopyUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.EventSeatingWrapper;
-import otp.mobile.backend.common.domain.EventsWrapper;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
+import otp.mobile.common.domain.EventSeatingWrapper;
+import otp.mobile.common.domain.EventsWrapper;
 
 public final class EventJsonParserUtil {
 

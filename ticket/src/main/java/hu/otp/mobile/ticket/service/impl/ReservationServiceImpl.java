@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import hu.otp.mobile.ticket.client.CoreClient;
 import hu.otp.mobile.ticket.client.PartnerClient;
 import hu.otp.mobile.ticket.service.ReservationService;
-import opt.mobile.backend.common.dto.ReservationResult;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.Seat;
+import opt.mobile.common.dto.ReservationResult;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
+import otp.mobile.common.domain.Seat;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.otp.mobile.ticket.service.EventService;
 import hu.otp.mobile.ticket.service.ReservationService;
-import opt.mobile.backend.common.dto.ReservationResult;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
+import opt.mobile.common.dto.ReservationResult;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
 
 @RestController
 @RequestMapping("/ticket")

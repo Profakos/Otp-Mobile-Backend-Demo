@@ -1,6 +1,6 @@
 package hu.otp.mobile.ticket.service;
 
-import opt.mobile.backend.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationResult;
 
 public interface ReservationService {
 

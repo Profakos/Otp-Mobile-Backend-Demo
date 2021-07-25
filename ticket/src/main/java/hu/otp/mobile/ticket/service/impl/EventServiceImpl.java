@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.ticket.client.PartnerClient;
 import hu.otp.mobile.ticket.service.EventService;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
 
 @Service
 public class EventServiceImpl implements EventService {

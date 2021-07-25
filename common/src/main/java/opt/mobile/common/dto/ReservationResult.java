@@ -1,4 +1,4 @@
-package opt.mobile.backend.common.dto;
+package opt.mobile.common.dto;
 
 public class ReservationResult {
 

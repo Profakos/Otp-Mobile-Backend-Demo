@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.partner.service.ReservationService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
-import opt.mobile.backend.common.dto.ErrorMessage;
-import opt.mobile.backend.common.dto.ReservationResult;
-import otp.mobile.backend.common.domain.Event;
-import otp.mobile.backend.common.domain.EventSeating;
-import otp.mobile.backend.common.domain.Seat;
+import opt.mobile.common.dto.ErrorMessage;
+import opt.mobile.common.dto.ReservationResult;
+import otp.mobile.common.domain.Event;
+import otp.mobile.common.domain.EventSeating;
+import otp.mobile.common.domain.Seat;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -33,7 +33,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!eventOpt.isPresent()) {
 			log.warn("Event does not exist");
-			result.setErrorCode(ErrorMessage.EVENT_DOESNT_EXIST.getErrorCode());
+			result.setErrorCode(ErrorMessage.PARTNER_EVENT_DOESNT_EXIST.getErrorCode());
 			result.setSuccess(false);
 			return result;
 		}
@@ -47,7 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
-			result.setErrorCode(ErrorMessage.SEAT_DOESNT_EXIST.getErrorCode());
+			result.setErrorCode(ErrorMessage.PARTNER_SEAT_DOESNT_EXIST.getErrorCode());
 			result.setSuccess(false);
 			return result;
 		}
@@ -56,7 +56,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (seat.getReserved()) {
 			log.warn("Seat is already reserved");
-			result.setErrorCode(ErrorMessage.SEAT_ALREADY_RESERVED.getErrorCode());
+			result.setErrorCode(ErrorMessage.PARTNER_SEAT_ALREADY_RESERVED.getErrorCode());
 			result.setSuccess(false);
 			return result;
 		}

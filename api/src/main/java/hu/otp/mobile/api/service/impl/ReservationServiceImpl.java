@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.api.client.TicketClient;
 import hu.otp.mobile.api.service.ReservationService;
-import opt.mobile.backend.common.dto.ReservationResult;
+import opt.mobile.common.dto.ReservationResult;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
