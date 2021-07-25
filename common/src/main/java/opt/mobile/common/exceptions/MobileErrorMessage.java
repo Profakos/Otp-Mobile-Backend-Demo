@@ -8,6 +8,15 @@ public enum MobileErrorMessage {
 	/** User token expired or undecodeable */
 	CORE_USER_TOKEN_EXPIRED_OR_UNDECODABLE("A felhasználói token lejárt vagy nem értelmezhető", 10051),
 
+	/** User does not exist */
+	CORE_USER_DOESNT_EXIST("A felhasználó nem létezik", 10060),
+
+	/** User email address incorrect */
+	CORE_USER_EMAIL_INCORRECT("A felhasználó email címe hibás", 10060),
+
+	/** Device does not belong to the user */
+	CORE_DEVICE_DOES_NOT_BELONG_TO_USER("Ez az eszköz a felhasználóhoz tartozik", 10070),
+
 	/** Bank card does not belong to the user */
 	CORE_BANK_CARD_DOES_NOT_BELONG_TO_USER("Ez a bankkártya nem ehhez a felhasználóhoz tartozik", 10100),
 
@@ -28,6 +37,9 @@ public enum MobileErrorMessage {
 
 	/** External system unavailable */
 	TICKET_EXTERNAL_SYSTEM_UNAVAILABLE("A külső rendszer nem elérhető!", 20404),
+
+	/** Card validation failed */
+	TICKET_CARD_VALIDATION_FAILED("A kártya validálása sikertelen", 20405),
 
 	/** Event does not exist */
 	PARTNER_EVENT_DOESNT_EXIST("Nem létezik ilyen esemény!", 90001),

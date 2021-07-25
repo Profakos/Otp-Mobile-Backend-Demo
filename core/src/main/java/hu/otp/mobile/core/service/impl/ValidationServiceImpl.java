@@ -11,13 +11,14 @@ import hu.otp.mobile.core.domain.User;
 import hu.otp.mobile.core.domain.UserBankCard;
 import hu.otp.mobile.core.domain.UserDevice;
 import hu.otp.mobile.core.dto.TokenDto;
-import hu.otp.mobile.core.dto.UserDto;
 import hu.otp.mobile.core.repository.UserBankCardRepository;
 import hu.otp.mobile.core.repository.UserDeviceRepository;
 import hu.otp.mobile.core.repository.UserRepository;
 import hu.otp.mobile.core.repository.UserTokenRepository;
 import hu.otp.mobile.core.service.ValidationService;
 import hu.otp.mobile.core.util.TokenParserUtil;
+import opt.mobile.common.dto.ValidationDto;
+import opt.mobile.common.exceptions.MobileErrorMessage;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
@@ -52,17 +53,18 @@ public class ValidationServiceImpl implements ValidationService {
 		return idStringBuilder.toString();
 	}
 
-	private UserDto getAndValidateUser(String userToken) {
+	private ValidationDto getAndValidateUser(String userToken) {
 
 		log.info("Validating user, userToken={}", userToken);
 
-		UserDto userDto = new UserDto();
+		ValidationDto userDto = new ValidationDto();
 		userDto.setSuccess(false);
 
 		TokenDto tokenDto = TokenParserUtil.decodeToken(userToken);
 
 		if (tokenDto == null) {
 			log.warn("Could not decode user token");
+			userDto.setError(MobileErrorMessage.CORE_USER_TOKEN_EXPIRED_OR_UNDECODABLE);
 			return userDto;
 		}
 
@@ -70,19 +72,22 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userOpt.isPresent()) {
 			log.warn("User not found");
+			userDto.setError(MobileErrorMessage.CORE_USER_DOESNT_EXIST);
 			return userDto;
 		}
 
 		User user = userOpt.get();
-		userDto.setUser(user);
+		userDto.setUserId(user.getUserId());
 
 		if (!userTokenRepository.findByUserIdAndToken(tokenDto.getUserId(), userToken).isPresent()) {
 			log.warn("Token has expired");
+			userDto.setError(MobileErrorMessage.CORE_USER_TOKEN_DOESNT_EXIST);
 			return userDto;
 		}
 
 		if (!user.getEmail().equals(tokenDto.getEmail())) {
 			log.warn("Token and user email does not match");
+			userDto.setError(MobileErrorMessage.CORE_USER_EMAIL_INCORRECT);
 			return userDto;
 		}
 
@@ -90,6 +95,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userDeviceOpt.isPresent()) {
 			log.warn("Invalid user device");
+			userDto.setError(MobileErrorMessage.CORE_DEVICE_DOES_NOT_BELONG_TO_USER);
 			return userDto;
 		}
 
@@ -100,44 +106,48 @@ public class ValidationServiceImpl implements ValidationService {
 	}
 
 	@Override
-	public boolean validateCard(String userToken, long cardId, int payment) {
+	public ValidationDto validateCard(String userToken, long cardId, int payment) {
 
 		log.info("Validating user, userToken={}, cardId={}, payment={}", userToken, cardId, payment);
 
-		UserDto userDto = getAndValidateUser(userToken);
+		ValidationDto userDto = getAndValidateUser(userToken);
 
 		if (!userDto.isSuccess()) {
 
 			log.warn("User validation failed");
-			return false;
+			return userDto;
 		}
+
+		ValidationDto cardDto = new ValidationDto();
 
 		String formattedCardId = formatCardId(cardId);
 
-		Optional<UserBankCard> userBankCardOpt = userBankCardRepository.findByUserIdAndCardId(userDto.getUser().getUserId(),
-				formattedCardId);
+		Optional<UserBankCard> userBankCardOpt = userBankCardRepository.findByUserIdAndCardId(userDto.getUserId(), formattedCardId);
 
 		if (!userBankCardOpt.isPresent()) {
 			log.warn("Unkown bank card");
-			return false;
+			cardDto.setError(MobileErrorMessage.CORE_BANK_CARD_DOES_NOT_BELONG_TO_USER);
+			return cardDto;
 		}
 
 		UserBankCard userBankCard = userBankCardOpt.get();
 
 		if (userBankCard.getAmount() - payment < 0) {
 			log.warn("Insufficient funds");
-			return false;
+			cardDto.setError(MobileErrorMessage.CORE_USER_NOT_ENOUGH_MONEY);
+			return cardDto;
 		}
 
-		return true;
+		cardDto.setSuccess(true);
+		return cardDto;
 	}
 
 	@Override
-	public boolean validateUser(String userToken) {
+	public ValidationDto validateUser(String userToken) {
 
-		UserDto userDto = getAndValidateUser(userToken);
+		ValidationDto userDto = getAndValidateUser(userToken);
 
-		return userDto.isSuccess();
+		return userDto;
 	}
 
 }

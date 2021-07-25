@@ -1,8 +1,10 @@
 package hu.otp.mobile.core.service;
 
+import opt.mobile.common.dto.ValidationDto;
+
 public interface ValidationService {
 
-	public boolean validateCard(String userToken, long cardId, int payment);
+	public ValidationDto validateCard(String userToken, long cardId, int payment);
 
-	public boolean validateUser(String userToken);
+	public ValidationDto validateUser(String userToken);
 }

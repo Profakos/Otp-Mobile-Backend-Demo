@@ -41,7 +41,6 @@ public class ApiController {
 		log.info("Received event detail request, userToken={}, eventId={}", userToken, eventId);
 
 		if (!tokenService.validateUser(userToken)) {
-
 			log.warn("User authentication failed.");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}

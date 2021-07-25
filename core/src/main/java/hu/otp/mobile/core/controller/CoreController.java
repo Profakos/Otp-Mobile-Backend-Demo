@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.otp.mobile.core.service.ValidationService;
+import opt.mobile.common.dto.ValidationDto;
 
 @RestController
 @RequestMapping("/core")
@@ -21,7 +22,7 @@ public class CoreController {
 	ValidationService validationService;
 
 	@GetMapping(path = "/validate-card")
-	ResponseEntity<Boolean> validateCard(@RequestParam("user-token") String userToken, @RequestParam("card-id") int cardId,
+	ResponseEntity<ValidationDto> validateCard(@RequestParam("user-token") String userToken, @RequestParam("card-id") int cardId,
 			@RequestParam("payment") int payment) {
 
 		log.info("Received card validation request, userToken={}, cardId={}, payment={}", userToken, cardId, payment);
@@ -30,7 +31,7 @@ public class CoreController {
 	}
 
 	@GetMapping(path = "/validate-user")
-	ResponseEntity<Boolean> validateUser(@RequestParam("user-token") String userToken) {
+	ResponseEntity<ValidationDto> validateUser(@RequestParam("user-token") String userToken) {
 
 		log.info("Received user validation request, userToken={}", userToken);
 

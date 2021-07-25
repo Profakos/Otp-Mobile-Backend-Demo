@@ -8,13 +8,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import opt.mobile.common.dto.ValidationDto;
+
 @Component
 public class CoreClient {
 
 	@Value("${rest.url.core}")
 	private String coreUrl;
 
-	public boolean validateUser(String userToken) {
+	public ValidationDto validateUser(String userToken) {
 
 		String url = coreUrl + "/validate-user";
 
@@ -25,7 +27,7 @@ public class CoreClient {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("user-token", userToken);
 
-		HttpEntity<Boolean> response = restTemplate.getForEntity(builder.build().encode().toUri(), Boolean.class);
+		HttpEntity<ValidationDto> response = restTemplate.getForEntity(builder.build().encode().toUri(), ValidationDto.class);
 
 		return response.getBody();
 

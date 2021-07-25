@@ -1,5 +1,6 @@
 package hu.otp.mobile.ticket.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,11 @@ import hu.otp.mobile.ticket.client.CoreClient;
 import hu.otp.mobile.ticket.client.PartnerClient;
 import hu.otp.mobile.ticket.service.ReservationService;
 import opt.mobile.common.dto.ReservationSuccessDto;
+import opt.mobile.common.dto.ValidationDto;
+import opt.mobile.common.exceptions.EventException;
+import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.ReservationException;
+import opt.mobile.common.exceptions.ValidationException;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 import otp.mobile.common.domain.Seat;
@@ -29,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationSuccessDto reserve(Long eventId, Long seatId, Long cardId, String userToken) {
 
-		log.info("Sending event seating data query to partner module");
+		log.info("Sending event seating data request to partner module");
 
 		List<Event> events = partnerClient.getEvents();
 
@@ -38,17 +44,17 @@ public class ReservationServiceImpl implements ReservationService {
 		if (!eventOptional.isPresent()) {
 
 			log.warn("Event does not exist");
-			return null;
+			throw new EventException(MobileErrorMessage.TICKET_EVENT_DOESNT_EXIST);
 		}
 
 		Event event = eventOptional.get();
 		String startDate = event.getStartTimeStamp();
+		Date eventStartTime = new Date(Long.parseLong(startDate) * 1000);
 
-		// Date eventStartTime = new Date(Long.parseLong(startDate) * 1000);
-		// if (eventStartTime.before(new Date())) {
-		// log.warn("Event has already started");
-		// return null;
-		// }
+		if (eventStartTime.before(new Date())) {
+			log.warn("Event has already started");
+			throw new ReservationException(MobileErrorMessage.TICKET_EVENT_ALREADY_BEGUN);
+		}
 
 		EventSeating eventSeating = partnerClient.getEvent(eventId);
 		String formattedSeatId = "S" + seatId;
@@ -56,12 +62,17 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
-			return null;
+			throw new EventException(MobileErrorMessage.TICKET_SEAT_DOESNT_EXIST);
 		}
+
 		int price = seatOpt.get().getPrice();
-		if (!coreClient.validateCard(userToken, cardId, price)) {
+
+		log.info("Sending event seating data request to core module, userToken={}, cardId={}, price={}", userToken, cardId, price);
+
+		ValidationDto cardDto = coreClient.validateCardPayment(userToken, cardId, price);
+		if (!cardDto.isSuccess()) {
 			log.warn("Failed to validate cards");
-			return null;
+			throw new ValidationException(MobileErrorMessage.TICKET_CARD_VALIDATION_FAILED);
 
 		}
 

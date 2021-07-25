@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.api.client.CoreClient;
 import hu.otp.mobile.api.service.TokenService;
+import opt.mobile.common.dto.ValidationDto;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -21,9 +22,9 @@ public class TokenServiceImpl implements TokenService {
 
 		log.info("Sending user validation query to core module");
 
-		boolean result = coreClient.validateUser(userToken);
+		ValidationDto userDto = coreClient.validateUser(userToken);
 
-		if (!result) {
+		if (!userDto.isSuccess()) {
 			log.info("User authentication failed");
 
 		} else {
@@ -31,7 +32,7 @@ public class TokenServiceImpl implements TokenService {
 
 		}
 
-		return result;
+		return userDto.isSuccess();
 	}
 
 }
