@@ -58,14 +58,16 @@ public final class EventJsonParserUtil {
 		String content = readContent(new ClassPathResource(path));
 
 		if (content == null) {
-			log.debug("Event content not found");
+			log.warn("Event content not found");
 			return null;
 		}
 
 		EventSeatingWrapper wrapper = parseContent(content, EventSeatingWrapper.class);
 
-		if (wrapper == null)
+		if (wrapper == null) {
+			log.warn("Failed to parse content");
 			return null;
+		}
 
 		return wrapper.getData();
 
@@ -86,8 +88,10 @@ public final class EventJsonParserUtil {
 
 		EventsWrapper wrapper = parseContent(content, EventsWrapper.class);
 
-		if (wrapper == null)
+		if (wrapper == null) {
+			log.warn("Failed to parse content");
 			return null;
+		}
 
 		return wrapper.getData();
 	}

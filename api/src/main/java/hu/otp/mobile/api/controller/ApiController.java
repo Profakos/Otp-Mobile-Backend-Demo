@@ -38,7 +38,7 @@ public class ApiController {
 	@GetMapping(path = "/getEvent/{eventId}")
 	ResponseEntity<EventSeating> getEvent(@RequestHeader("User-Token") String userToken, @PathVariable Long eventId) {
 
-		log.info("Querying the details of an event, eventId={}", eventId);
+		log.info("Received event detail request, userToken={}, eventId={}", userToken, eventId);
 
 		if (!tokenService.validateUser(userToken)) {
 
@@ -52,7 +52,7 @@ public class ApiController {
 	@GetMapping(path = "/getEvents")
 	ResponseEntity<List<Event>> getEvents(@RequestHeader("User-Token") String userToken) {
 
-		log.info("Querying the description of all events");
+		log.info("Received event list request, userToken={}", userToken);
 
 		if (!tokenService.validateUser(userToken)) {
 
@@ -68,8 +68,8 @@ public class ApiController {
 			@RequestParam(name = "eventId", required = true) Long eventId, @RequestParam(name = "seatId", required = true) Long seatId,
 			@RequestParam(name = "cardId", required = true) Long cardId) {
 
-		log.info("Attempting reservation at a specific event and seat with a specific card, eventId={}, seatId={}, cardId={}", eventId,
-				seatId, cardId);
+		log.info("Received event seat purchase request, userToken={}, eventId={}, seatId={}, cardId={}", userToken, eventId, seatId,
+				cardId);
 
 		if (!tokenService.validateUser(userToken)) {
 

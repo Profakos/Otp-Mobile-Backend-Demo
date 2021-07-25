@@ -24,7 +24,7 @@ public class CoreController {
 	ResponseEntity<Boolean> validateCard(@RequestParam("user-token") String userToken, @RequestParam("card-id") int cardId,
 			@RequestParam("payment") int payment) {
 
-		log.info("Attempting card validation for user, userToken={}, cardId={}, payment={}", userToken, cardId, payment);
+		log.info("Received card validation request, userToken={}, cardId={}, payment={}", userToken, cardId, payment);
 
 		return ResponseEntity.ok(validationService.validateCard(userToken, cardId, payment));
 	}
@@ -32,7 +32,7 @@ public class CoreController {
 	@GetMapping(path = "/validate-user")
 	ResponseEntity<Boolean> validateUser(@RequestParam("user-token") String userToken) {
 
-		log.info("Attempting user validation, userToken={}", userToken);
+		log.info("Received user validation request, userToken={}", userToken);
 
 		return ResponseEntity.ok(validationService.validateUser(userToken));
 	}

@@ -19,7 +19,7 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public boolean validateUser(String userToken) {
 
-		log.info("Validating user");
+		log.info("Sending user validation query to core module");
 
 		boolean result = coreClient.validateUser(userToken);
 

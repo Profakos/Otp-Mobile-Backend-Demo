@@ -32,6 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationResult result = new ReservationResult();
 
 		if (!eventOpt.isPresent()) {
+			log.warn("Event does not exist");
 			result.setErrorCode(ErrorMessage.EVENT_DOESNT_EXIST.getErrorCode());
 			result.setSuccess(false);
 			return result;
@@ -45,6 +46,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Optional<Seat> seatOpt = eventSeating.getSeats().stream().filter(e -> e.getId().equals(formattedSeatId)).findFirst();
 
 		if (!seatOpt.isPresent()) {
+			log.warn("Seat does not exist");
 			result.setErrorCode(ErrorMessage.SEAT_DOESNT_EXIST.getErrorCode());
 			result.setSuccess(false);
 			return result;
@@ -53,6 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Seat seat = seatOpt.get();
 
 		if (seat.getReserved()) {
+			log.warn("Seat is already reserved");
 			result.setErrorCode(ErrorMessage.SEAT_ALREADY_RESERVED.getErrorCode());
 			result.setSuccess(false);
 			return result;
@@ -66,6 +69,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 		result.setReservationId(generatedId);
 		result.setSuccess(true);
+
+		log.info("Seat succesfully reserved");
 
 		return result;
 	}

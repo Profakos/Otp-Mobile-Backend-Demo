@@ -3,6 +3,9 @@ package hu.otp.mobile.ticket.client;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import hu.otp.mobile.ticket.util.SslUtil;
 import opt.mobile.backend.common.dto.ReservationResult;
 import otp.mobile.backend.common.domain.Event;
 import otp.mobile.backend.common.domain.EventSeating;
@@ -18,14 +22,25 @@ import otp.mobile.backend.common.domain.EventSeating;
 @Component
 public class PartnerClient {
 
+	private final Logger log = LoggerFactory.getLogger(PartnerClient.class);
+
 	@Value("${rest.url.partner}")
 	private String partnerUrl;
+
+	@Autowired
+	private SslUtil sslUtil;
 
 	public EventSeating getEvent(Long eventId) {
 
 		String url = partnerUrl + "/getEvent/" + eventId;
 
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate;
+		try {
+			restTemplate = sslUtil.createSslRestemplate();
+		} catch (Exception e) {
+			log.warn("Failed to create ssl rest template");
+			return null;
+		}
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
@@ -42,7 +57,13 @@ public class PartnerClient {
 
 		String url = partnerUrl + "/getEvents";
 
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate;
+		try {
+			restTemplate = sslUtil.createSslRestemplate();
+		} catch (Exception e) {
+			log.warn("Failed to create ssl rest template");
+			return null;
+		}
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
@@ -58,7 +79,13 @@ public class PartnerClient {
 
 		String url = partnerUrl + "/reserve";
 
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate;
+		try {
+			restTemplate = sslUtil.createSslRestemplate();
+		} catch (Exception e) {
+			log.warn("Failed to create ssl rest template");
+			return null;
+		}
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);

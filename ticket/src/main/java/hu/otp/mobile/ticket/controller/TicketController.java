@@ -33,7 +33,7 @@ public class TicketController {
 	@GetMapping(path = "/getEvent/{eventId}")
 	ResponseEntity<EventSeating> getEvent(@PathVariable Long eventId) {
 
-		log.info("Querying the seating data of an event, eventId={}", eventId);
+		log.info("Received event detail request, eventId={}", eventId);
 
 		return ResponseEntity.ok(eventService.getEvent(eventId));
 	}
@@ -41,7 +41,7 @@ public class TicketController {
 	@GetMapping(path = "/getEvents")
 	ResponseEntity<List<Event>> getEvents() {
 
-		log.info("Querying the description of all events");
+		log.info("Received event list request");
 
 		return ResponseEntity.ok(eventService.getEvents());
 	}
@@ -51,8 +51,8 @@ public class TicketController {
 			@RequestParam(name = "eventId", required = true) Long eventId, @RequestParam(name = "seatId", required = true) Long seatId,
 			@RequestParam(name = "cardId", required = true) Long cardId) {
 
-		log.info("Attempting payment and reservation at a specific event and seat, userToken={}, eventId={}, seatId={}, cardId={}",
-				userToken, eventId, seatId, cardId);
+		log.info("Received event seat purchase request, userToken={}, eventId={}, seatId={}, cardId={}", userToken, eventId, seatId,
+				cardId);
 
 		return ResponseEntity.ok(reservationService.reserve(eventId, seatId, cardId, userToken));
 	}
