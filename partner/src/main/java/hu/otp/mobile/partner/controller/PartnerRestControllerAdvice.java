@@ -7,17 +7,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import opt.mobile.common.exceptions.MobileBackendException;
+import opt.mobile.common.dto.ReservationErrorDto;
+import opt.mobile.common.exceptions.ReservationException;
 
 @ControllerAdvice
 public class PartnerRestControllerAdvice {
 
 	private static final Logger log = LoggerFactory.getLogger(PartnerRestControllerAdvice.class);
 
-	@ExceptionHandler(MobileBackendException.class)
-	public ResponseEntity<String> handleMobileBackendException(MobileBackendException e) {
-		log.info("Hiba elkapva.");
+	@ExceptionHandler(ReservationException.class)
+	public ResponseEntity<ReservationErrorDto> handleReservationException(ReservationException e) {
+		log.info("Unable to create a valid reservation");
 
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMobileErrorMessage().getLabel());
+		ReservationErrorDto dto = new ReservationErrorDto();
+		dto.setSuccess(false);
+		dto.setErrorCode(e.getMobileErrorMessage().getErrorCode());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(dto);
 	}
 }
