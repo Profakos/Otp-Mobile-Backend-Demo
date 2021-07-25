@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -44,6 +45,7 @@ public class PartnerClient {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
@@ -67,6 +69,7 @@ public class PartnerClient {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
@@ -89,6 +92,7 @@ public class PartnerClient {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("eventId", eventId).queryParam("seatId", seatId);
 

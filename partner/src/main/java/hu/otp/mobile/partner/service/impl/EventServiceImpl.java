@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import hu.otp.mobile.partner.service.EventService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
+import opt.mobile.common.exceptions.EventException;
+import opt.mobile.common.exceptions.MobileErrorMessage;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 
@@ -21,7 +23,12 @@ public class EventServiceImpl implements EventService {
 
 		log.info("Reading event seating data, eventId={}", eventId);
 
-		return EventJsonParserUtil.readEventData(eventId);
+		EventSeating eventSeating = EventJsonParserUtil.readEventData(eventId);
+
+		if (eventSeating == null)
+			throw new EventException(MobileErrorMessage.PARTNER_EVENT_DOESNT_EXIST);
+
+		return eventSeating;
 	}
 
 	@Override
