@@ -1,6 +1,6 @@
 package opt.mobile.common.exceptions;
 
-public enum MobileErrorMessage {
+public enum MobileError {
 
 	/** User token does not exist */
 	CORE_USER_TOKEN_DOESNT_EXIST("A felhasználói token nem szerepel", 10050),
@@ -53,7 +53,7 @@ public enum MobileErrorMessage {
 	private String label;
 	private int errorCode;
 
-	private MobileErrorMessage(String label, int errorCode) {
+	private MobileError(String label, int errorCode) {
 
 		this.label = label;
 		this.errorCode = errorCode;

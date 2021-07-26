@@ -1,12 +1,12 @@
 package opt.mobile.common.dto;
 
-import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.MobileError;
 
 public class ValidationDto {
 
 	private int userId;
 	private boolean success;
-	private MobileErrorMessage error;
+	private MobileError error;
 
 	public int getUserId() {
 		return userId;
@@ -24,11 +24,11 @@ public class ValidationDto {
 		this.success = success;
 	}
 
-	public MobileErrorMessage getError() {
+	public MobileError getError() {
 		return error;
 	}
 
-	public void setError(MobileErrorMessage error) {
+	public void setError(MobileError error) {
 		this.error = error;
 	}
 }

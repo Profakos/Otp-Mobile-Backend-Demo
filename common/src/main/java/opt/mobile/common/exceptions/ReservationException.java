@@ -1,13 +1,13 @@
 package opt.mobile.common.exceptions;
 
-public class ReservationException extends MobileBackendException {
+public class ReservationException extends MobileException {
 
 	/**
 	 * Serial
 	 */
 	private static final long serialVersionUID = -7204479625750148565L;
 
-	public ReservationException(MobileErrorMessage errorMessage) {
+	public ReservationException(MobileError errorMessage) {
 		super(errorMessage);
 	}
 

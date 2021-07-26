@@ -1,13 +1,13 @@
 package opt.mobile.common.exceptions;
 
-public class EventException extends MobileBackendException {
+public class EventException extends MobileException {
 
 	/**
 	 * Serial
 	 */
 	private static final long serialVersionUID = -4962404574192459845L;
 
-	public EventException(MobileErrorMessage errorMessage) {
+	public EventException(MobileError errorMessage) {
 		super(errorMessage);
 	}
 

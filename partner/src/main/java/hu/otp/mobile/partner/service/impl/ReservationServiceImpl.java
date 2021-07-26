@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import hu.otp.mobile.partner.service.ReservationService;
 import hu.otp.mobile.partner.util.EventJsonParserUtil;
 import opt.mobile.common.dto.ReservationSuccessDto;
-import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.MobileError;
 import opt.mobile.common.exceptions.ReservationException;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!eventOpt.isPresent()) {
 			log.warn("Event does not exist");
-			throw new ReservationException(MobileErrorMessage.PARTNER_EVENT_DOESNT_EXIST);
+			throw new ReservationException(MobileError.PARTNER_EVENT_DOESNT_EXIST);
 
 		}
 
@@ -45,14 +45,14 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
-			throw new ReservationException(MobileErrorMessage.PARTNER_SEAT_DOESNT_EXIST);
+			throw new ReservationException(MobileError.PARTNER_SEAT_DOESNT_EXIST);
 		}
 
 		Seat seat = seatOpt.get();
 
 		if (seat.getReserved()) {
 			log.warn("Seat is already reserved");
-			throw new ReservationException(MobileErrorMessage.PARTNER_SEAT_ALREADY_RESERVED);
+			throw new ReservationException(MobileError.PARTNER_SEAT_ALREADY_RESERVED);
 		}
 
 		ReservationSuccessDto result = new ReservationSuccessDto();

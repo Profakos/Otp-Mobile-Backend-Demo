@@ -1,4 +1,4 @@
-package hu.otp.mobile.partner.controller;
+package hu.otp.mobile.partner.advice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +22,9 @@ public class PartnerRestControllerAdvice {
 
 		ReservationErrorDto dto = new ReservationErrorDto();
 		dto.setSuccess(false);
-		dto.setErrorCode(e.getMobileErrorMessage().getErrorCode());
+		dto.setErrorCode(e.getMobileError().getErrorCode());
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMobileErrorMessage().getLabel());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMobileError().getLabel());
 	}
 
 	@ExceptionHandler(ReservationException.class)
@@ -33,7 +33,7 @@ public class PartnerRestControllerAdvice {
 
 		ReservationErrorDto dto = new ReservationErrorDto();
 		dto.setSuccess(false);
-		dto.setErrorCode(e.getMobileErrorMessage().getErrorCode());
+		dto.setErrorCode(e.getMobileError().getErrorCode());
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(dto);
 	}

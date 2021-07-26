@@ -18,7 +18,7 @@ import hu.otp.mobile.core.repository.UserTokenRepository;
 import hu.otp.mobile.core.service.ValidationService;
 import hu.otp.mobile.core.util.TokenParserUtil;
 import opt.mobile.common.dto.ValidationDto;
-import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.MobileError;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
@@ -64,7 +64,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (tokenDto == null) {
 			log.warn("Could not decode user token");
-			userDto.setError(MobileErrorMessage.CORE_USER_TOKEN_EXPIRED_OR_UNDECODABLE);
+			userDto.setError(MobileError.CORE_USER_TOKEN_EXPIRED_OR_UNDECODABLE);
 			return userDto;
 		}
 
@@ -72,7 +72,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userOpt.isPresent()) {
 			log.warn("User not found");
-			userDto.setError(MobileErrorMessage.CORE_USER_DOESNT_EXIST);
+			userDto.setError(MobileError.CORE_USER_DOESNT_EXIST);
 			return userDto;
 		}
 
@@ -81,13 +81,13 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userTokenRepository.findByUserIdAndToken(tokenDto.getUserId(), userToken).isPresent()) {
 			log.warn("Token has expired");
-			userDto.setError(MobileErrorMessage.CORE_USER_TOKEN_DOESNT_EXIST);
+			userDto.setError(MobileError.CORE_USER_TOKEN_DOESNT_EXIST);
 			return userDto;
 		}
 
 		if (!user.getEmail().equals(tokenDto.getEmail())) {
 			log.warn("Token and user email does not match");
-			userDto.setError(MobileErrorMessage.CORE_USER_EMAIL_INCORRECT);
+			userDto.setError(MobileError.CORE_USER_EMAIL_INCORRECT);
 			return userDto;
 		}
 
@@ -95,7 +95,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userDeviceOpt.isPresent()) {
 			log.warn("Invalid user device");
-			userDto.setError(MobileErrorMessage.CORE_DEVICE_DOES_NOT_BELONG_TO_USER);
+			userDto.setError(MobileError.CORE_DEVICE_DOES_NOT_BELONG_TO_USER);
 			return userDto;
 		}
 
@@ -126,7 +126,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (!userBankCardOpt.isPresent()) {
 			log.warn("Unkown bank card");
-			cardDto.setError(MobileErrorMessage.CORE_BANK_CARD_DOES_NOT_BELONG_TO_USER);
+			cardDto.setError(MobileError.CORE_BANK_CARD_DOES_NOT_BELONG_TO_USER);
 			return cardDto;
 		}
 
@@ -134,7 +134,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 		if (userBankCard.getAmount() - payment < 0) {
 			log.warn("Insufficient funds");
-			cardDto.setError(MobileErrorMessage.CORE_USER_NOT_ENOUGH_MONEY);
+			cardDto.setError(MobileError.CORE_USER_NOT_ENOUGH_MONEY);
 			return cardDto;
 		}
 

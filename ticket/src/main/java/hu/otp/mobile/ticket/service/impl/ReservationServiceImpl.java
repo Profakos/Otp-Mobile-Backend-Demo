@@ -15,7 +15,7 @@ import hu.otp.mobile.ticket.service.ReservationService;
 import opt.mobile.common.dto.ReservationSuccessDto;
 import opt.mobile.common.dto.ValidationDto;
 import opt.mobile.common.exceptions.EventException;
-import opt.mobile.common.exceptions.MobileErrorMessage;
+import opt.mobile.common.exceptions.MobileError;
 import opt.mobile.common.exceptions.ReservationException;
 import opt.mobile.common.exceptions.ValidationException;
 import otp.mobile.common.domain.Event;
@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 		if (!eventOptional.isPresent()) {
 
 			log.warn("Event does not exist");
-			throw new EventException(MobileErrorMessage.TICKET_EVENT_DOESNT_EXIST);
+			throw new EventException(MobileError.TICKET_EVENT_DOESNT_EXIST);
 		}
 
 		Event event = eventOptional.get();
@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (eventStartTime.before(new Date())) {
 			log.warn("Event has already started");
-			throw new ReservationException(MobileErrorMessage.TICKET_EVENT_ALREADY_BEGUN);
+			throw new ReservationException(MobileError.TICKET_EVENT_ALREADY_BEGUN);
 		}
 
 		EventSeating eventSeating = partnerClient.getEvent(eventId);
@@ -62,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (!seatOpt.isPresent()) {
 			log.warn("Seat does not exist");
-			throw new EventException(MobileErrorMessage.TICKET_SEAT_DOESNT_EXIST);
+			throw new EventException(MobileError.TICKET_SEAT_DOESNT_EXIST);
 		}
 
 		int price = seatOpt.get().getPrice();
@@ -72,7 +72,7 @@ public class ReservationServiceImpl implements ReservationService {
 		ValidationDto cardDto = coreClient.validateCardPayment(userToken, cardId, price);
 		if (!cardDto.isSuccess()) {
 			log.warn("Failed to validate cards");
-			throw new ValidationException(MobileErrorMessage.TICKET_CARD_VALIDATION_FAILED);
+			throw new ValidationException(MobileError.TICKET_CARD_VALIDATION_FAILED);
 
 		}
 

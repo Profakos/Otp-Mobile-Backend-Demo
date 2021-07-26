@@ -12,11 +12,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import hu.otp.mobile.ticket.util.SslUtil;
 import opt.mobile.common.dto.ReservationSuccessDto;
+import opt.mobile.common.exceptions.MobileError;
+import opt.mobile.common.exceptions.RestException;
 import otp.mobile.common.domain.Event;
 import otp.mobile.common.domain.EventSeating;
 
@@ -48,8 +51,13 @@ public class PartnerClient {
 		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		HttpEntity<EventSeating> response;
 
-		HttpEntity<EventSeating> response = restTemplate.getForEntity(builder.build().encode().toUri(), EventSeating.class);
+		try {
+			response = restTemplate.getForEntity(builder.build().encode().toUri(), EventSeating.class);
+		} catch (RestClientException e) {
+			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		}
 
 		return response.getBody();
 
@@ -73,7 +81,13 @@ public class PartnerClient {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
-		HttpEntity<Event[]> response = restTemplate.getForEntity(builder.build().encode().toUri(), Event[].class);
+		HttpEntity<Event[]> response;
+
+		try {
+			response = restTemplate.getForEntity(builder.build().encode().toUri(), Event[].class);
+		} catch (RestClientException e) {
+			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		}
 
 		return Arrays.asList(response.getBody());
 	}
@@ -96,8 +110,13 @@ public class PartnerClient {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("eventId", eventId).queryParam("seatId", seatId);
 
-		HttpEntity<ReservationSuccessDto> response = restTemplate.postForEntity(builder.build().encode().toUri(), null,
-				ReservationSuccessDto.class);
+		HttpEntity<ReservationSuccessDto> response;
+
+		try {
+			response = restTemplate.postForEntity(builder.build().encode().toUri(), null, ReservationSuccessDto.class);
+		} catch (RestClientException e) {
+			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		}
 
 		return response.getBody();
 	}
