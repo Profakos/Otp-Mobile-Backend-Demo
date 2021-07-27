@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import hu.otp.mobile.ticket.util.SslUtil;
 import opt.mobile.common.dto.ReservationSuccessDto;
-import opt.mobile.common.exceptions.CustomTextError;
+import opt.mobile.common.exceptions.CustomTextException;
 import opt.mobile.common.exceptions.MobileError;
 import opt.mobile.common.exceptions.RestException;
 import otp.mobile.common.domain.Event;
@@ -60,7 +60,7 @@ public class PartnerClient {
 		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
 		} catch (RestClientException e) {
-			throw new CustomTextError(e.getMessage());
+			throw new CustomTextException(e.getMessage());
 		}
 
 		return response.getBody();
@@ -92,7 +92,7 @@ public class PartnerClient {
 		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
 		} catch (RestClientException e) {
-			throw new CustomTextError(e.getMessage());
+			throw new CustomTextException(e.getMessage());
 		}
 
 		return Arrays.asList(response.getBody());
@@ -123,7 +123,7 @@ public class PartnerClient {
 		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
 		} catch (RestClientException e) {
-			throw new CustomTextError(e.getMessage());
+			throw new CustomTextException(e.getMessage());
 		}
 
 		return response.getBody();
