@@ -36,7 +36,7 @@ public class PartnerClient {
 
 	public EventSeating getEvent(Long eventId) {
 
-		String url = partnerUrl + "/getEvent/" + eventId;
+		String url = partnerUrl + "/getEvent";
 
 		RestTemplate restTemplate;
 		try {
@@ -50,7 +50,7 @@ public class PartnerClient {
 		headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("eventId", eventId);
 		HttpEntity<EventSeating> response;
 
 		try {

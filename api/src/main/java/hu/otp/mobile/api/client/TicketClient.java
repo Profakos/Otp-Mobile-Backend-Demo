@@ -24,7 +24,7 @@ public class TicketClient {
 
 	public EventSeating getEvent(Long eventId) {
 
-		String url = ticketUrl + "/getEvent/" + eventId;
+		String url = ticketUrl + "/getEvent";
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -33,7 +33,7 @@ public class TicketClient {
 
 		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("eventId", eventId);
 
 		HttpEntity<EventSeating> response = restTemplate.getForEntity(builder.build().encode().toUri(), EventSeating.class);
 
