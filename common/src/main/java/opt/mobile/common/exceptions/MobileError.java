@@ -63,16 +63,8 @@ public enum MobileError {
 		return label;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public int getErrorCode() {
 		return errorCode;
-	}
-
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
 	}
 
 }
