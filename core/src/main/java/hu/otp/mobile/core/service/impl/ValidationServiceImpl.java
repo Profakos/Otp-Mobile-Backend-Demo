@@ -138,6 +138,8 @@ public class ValidationServiceImpl implements ValidationService {
 			return cardDto;
 		}
 
+		log.info("Card validation successful");
+
 		cardDto.setSuccess(true);
 		return cardDto;
 	}
