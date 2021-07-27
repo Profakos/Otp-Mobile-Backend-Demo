@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import opt.mobile.common.dto.ReservationErrorDto;
+import opt.mobile.common.exceptions.CustomTextError;
 import opt.mobile.common.exceptions.EventException;
 import opt.mobile.common.exceptions.ReservationException;
 import opt.mobile.common.exceptions.RestException;
@@ -40,10 +41,17 @@ public class TicketRestControllerAdvice {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(dto);
 	}
 
+	@ExceptionHandler(CustomTextError.class)
+	public ResponseEntity<String> handleCustomTextError(CustomTextError e) {
+		log.info("Custom error, message={}", e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	}
+
 	@ExceptionHandler(RestException.class)
 	public ResponseEntity<String> handleRestException(RestException e) {
 		log.info("Unable to find response for rest template, message={}", e.getMobileError().getLabel());
-	
+
 		return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(e.getMobileError().getLabel());
 	}
 

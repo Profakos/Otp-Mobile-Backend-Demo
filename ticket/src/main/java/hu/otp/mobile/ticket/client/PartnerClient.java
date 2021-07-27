@@ -12,12 +12,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import hu.otp.mobile.ticket.util.SslUtil;
 import opt.mobile.common.dto.ReservationSuccessDto;
+import opt.mobile.common.exceptions.CustomTextError;
 import opt.mobile.common.exceptions.MobileError;
 import opt.mobile.common.exceptions.RestException;
 import otp.mobile.common.domain.Event;
@@ -55,8 +57,10 @@ public class PartnerClient {
 
 		try {
 			response = restTemplate.getForEntity(builder.build().encode().toUri(), EventSeating.class);
-		} catch (RestClientException e) {
+		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		} catch (RestClientException e) {
+			throw new CustomTextError(e.getMessage());
 		}
 
 		return response.getBody();
@@ -85,8 +89,10 @@ public class PartnerClient {
 
 		try {
 			response = restTemplate.getForEntity(builder.build().encode().toUri(), Event[].class);
-		} catch (RestClientException e) {
+		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		} catch (RestClientException e) {
+			throw new CustomTextError(e.getMessage());
 		}
 
 		return Arrays.asList(response.getBody());
@@ -114,8 +120,10 @@ public class PartnerClient {
 
 		try {
 			response = restTemplate.postForEntity(builder.build().encode().toUri(), null, ReservationSuccessDto.class);
-		} catch (RestClientException e) {
+		} catch (ResourceAccessException e) {
 			throw new RestException(MobileError.TICKET_EXTERNAL_SYSTEM_UNAVAILABLE);
+		} catch (RestClientException e) {
+			throw new CustomTextError(e.getMessage());
 		}
 
 		return response.getBody();
