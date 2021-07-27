@@ -36,7 +36,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 	private String formatCardId(long cardId) {
 
-		log.info("Formatting card id to string, cardId={}");
+		log.info("Formatting card id to string, cardId={}", cardId);
 
 		String idString = Long.toString(cardId);
 

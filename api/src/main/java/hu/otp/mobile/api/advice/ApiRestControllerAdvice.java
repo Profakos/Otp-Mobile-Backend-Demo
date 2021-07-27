@@ -22,14 +22,14 @@ public class ApiRestControllerAdvice {
 
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleHttpClientErrorException(HttpClientErrorException e) {
-		log.info("Client error, message={}", e);
+		log.info("Client error, message={}", e.getMessage());
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getResponseBodyAsString());
 	}
 
 	@ExceptionHandler(HttpServerErrorException.class)
 	public ResponseEntity<String> handleHttpClientErrorException(HttpServerErrorException e) {
-		log.info("Client error, message={}", e);
+		log.info("Client error, message={}", e.getMessage());
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getResponseBodyAsString());
 	}
