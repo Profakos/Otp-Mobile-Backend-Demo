@@ -31,7 +31,7 @@ public class PartnerClient {
 
 	private final Logger log = LoggerFactory.getLogger(PartnerClient.class);
 
-	private static final String sslFailureMessage = "Failed to create ssl rest template";
+	private static final String SSL_FAILURE = "Failed to create ssl rest template";
 
 	@Value("${rest.url.partner}")
 	private String partnerUrl;
@@ -47,7 +47,7 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn(sslFailureMessage);
+			log.warn(SSL_FAILURE);
 			return null;
 		}
 
@@ -78,7 +78,7 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn(sslFailureMessage);
+			log.warn(SSL_FAILURE);
 			return new ArrayList<>();
 		}
 
@@ -109,7 +109,7 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn(sslFailureMessage);
+			log.warn(SSL_FAILURE);
 			return null;
 		}
 

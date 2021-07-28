@@ -27,7 +27,7 @@ public class ApiController {
 
 	private final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-	private static final String authenticationFailure = "User authentication failed";
+	private static final String AUTH_FAILURE = "User authentication failed";
 
 	@Autowired
 	EventService eventService;
@@ -43,7 +43,7 @@ public class ApiController {
 		log.info("Received event detail request, userToken={}, eventId={}", userToken, eventId);
 
 		if (!tokenService.validateUser(userToken)) {
-			log.warn(authenticationFailure);
+			log.warn(AUTH_FAILURE);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 
@@ -57,7 +57,7 @@ public class ApiController {
 
 		if (!tokenService.validateUser(userToken)) {
 
-			log.warn(authenticationFailure);
+			log.warn(AUTH_FAILURE);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 
@@ -74,7 +74,7 @@ public class ApiController {
 
 		if (!tokenService.validateUser(userToken)) {
 
-			log.warn(authenticationFailure);
+			log.warn(AUTH_FAILURE);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 
