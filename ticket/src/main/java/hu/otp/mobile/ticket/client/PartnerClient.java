@@ -31,7 +31,7 @@ public class PartnerClient {
 
 	private final Logger log = LoggerFactory.getLogger(PartnerClient.class);
 
-	private final String sslFailureMessage = "Failed to create ssl rest template";
+	private static final String sslFailureMessage = "Failed to create ssl rest template";
 
 	@Value("${rest.url.partner}")
 	private String partnerUrl;

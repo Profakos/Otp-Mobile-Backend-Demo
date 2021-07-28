@@ -27,7 +27,7 @@ public class ApiController {
 
 	private final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-	private final String authenticationFailure = "User authentication failed";
+	private static final String authenticationFailure = "User authentication failed";
 
 	@Autowired
 	EventService eventService;
