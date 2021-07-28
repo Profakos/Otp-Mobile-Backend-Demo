@@ -57,6 +57,13 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		EventSeating eventSeating = partnerClient.getEvent(eventId);
+
+		if (eventSeating == null) {
+
+			log.warn("Event does not exist");
+			throw new EventException(MobileError.TICKET_EVENT_DOESNT_EXIST);
+		}
+
 		String formattedSeatId = "S" + seatId;
 		Optional<Seat> seatOpt = eventSeating.getSeats().stream().filter(e -> e.getId().equals(formattedSeatId)).findFirst();
 

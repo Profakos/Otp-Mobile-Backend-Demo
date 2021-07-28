@@ -3,6 +3,7 @@ package hu.otp.mobile.partner.util;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -83,14 +84,14 @@ public final class EventJsonParserUtil {
 
 		if (content == null) {
 			log.debug("Event content not found");
-			return null;
+			return new ArrayList<Event>();
 		}
 
 		EventsWrapper wrapper = parseContent(content, EventsWrapper.class);
 
 		if (wrapper == null) {
 			log.warn("Failed to parse content");
-			return null;
+			return new ArrayList<Event>();
 		}
 
 		return wrapper.getData();
