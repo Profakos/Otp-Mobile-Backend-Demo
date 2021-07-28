@@ -147,9 +147,7 @@ public class ValidationServiceImpl implements ValidationService {
 	@Override
 	public ValidationDto validateUser(String userToken) {
 
-		ValidationDto userDto = getAndValidateUser(userToken);
-
-		return userDto;
+		return getAndValidateUser(userToken);
 	}
 
 }

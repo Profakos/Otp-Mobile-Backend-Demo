@@ -1,5 +1,6 @@
 package hu.otp.mobile.ticket.client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class PartnerClient {
 
 	private final Logger log = LoggerFactory.getLogger(PartnerClient.class);
 
+	private final String sslFailureMessage = "Failed to create ssl rest template";
+
 	@Value("${rest.url.partner}")
 	private String partnerUrl;
 
@@ -44,7 +47,7 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn("Failed to create ssl rest template");
+			log.warn(sslFailureMessage);
 			return null;
 		}
 
@@ -75,8 +78,8 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn("Failed to create ssl rest template");
-			return null;
+			log.warn(sslFailureMessage);
+			return new ArrayList<>();
 		}
 
 		HttpHeaders headers = new HttpHeaders();
@@ -106,7 +109,7 @@ public class PartnerClient {
 		try {
 			restTemplate = sslUtil.createSslRestemplate();
 		} catch (Exception e) {
-			log.warn("Failed to create ssl rest template");
+			log.warn(sslFailureMessage);
 			return null;
 		}
 

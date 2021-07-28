@@ -21,6 +21,10 @@ import otp.mobile.common.domain.EventsWrapper;
 
 public final class EventJsonParserUtil {
 
+	private EventJsonParserUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	private static final Logger log = LoggerFactory.getLogger(EventJsonParserUtil.class);
 
 	private static <T> T parseContent(String content, Class<T> type) {
@@ -84,14 +88,14 @@ public final class EventJsonParserUtil {
 
 		if (content == null) {
 			log.debug("Event content not found");
-			return new ArrayList<Event>();
+			return new ArrayList<>();
 		}
 
 		EventsWrapper wrapper = parseContent(content, EventsWrapper.class);
 
 		if (wrapper == null) {
 			log.warn("Failed to parse content");
-			return new ArrayList<Event>();
+			return new ArrayList<>();
 		}
 
 		return wrapper.getData();

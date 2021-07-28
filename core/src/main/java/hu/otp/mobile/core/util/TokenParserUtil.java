@@ -11,6 +11,10 @@ public final class TokenParserUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(TokenParserUtil.class);
 
+	private TokenParserUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static TokenDto decodeToken(String userToken) {
 
 		log.debug("Parsing token, userToken={}", userToken);
